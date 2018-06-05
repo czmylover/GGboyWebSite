@@ -1,0 +1,59 @@
+注：以下内容只适用于chrome
+
+页面宽高:
+
+document.body.clientWidth/Height（不包括margin）
+
+document.body.offsetWidth/Height（不包括margin）
+
+document.body.scrollWidth/Height（包括margin）
+
+tips:
+
+1.如果不是最大化浏览器窗口，且在body标签设置min-width，document.body.offsetWidth会比document.body.clientWidth多出2px，那就是滚动条旁边的2px空白空间。
+
+2.有时候，没设置overflow:hidden;图片会撑出页面宽度。从而，你认为有横向滚动条的页面宽度数值不准。
+
+窗口viewport宽高：
+
+window.innerWidth/Height（带滚动条）
+
+document.documentElement.clientWidth/Height（不带滚动条）
+
+元素宽高：
+
+element.offsetWidth/Height(width+padding+border)
+
+element.scrollWidth/Height(width+padding，没加border)
+
+元素位置：
+
+element.offsetTop/Left(相对于父元素offsetParent对象) 
+
+通过递归父元素，获取父元素的offsetTop/Left即可获取元素相对于页面的位置
+
+function getElementTop(element){
+　　　　var actualTop = element.offsetTop;
+　　　　var current = element.offsetParent;
+
+　　　　while (current !== null){
+　　　　　　actualTop += current.offsetTop;
+　　　　　　current = current.offsetParent;
+　　　　}
+
+　　　　return actualTop;
+　　}
+
+另一种方法，
+
+使用getBoundingClientRect()方法获取元素相对于窗口的距离，返回的是left、right、top、bottom,width和height
+
+var X= this.getBoundingClientRect().left+document.body.scrollLeft;
+
+var Y =this.getBoundingClientRect().top+document.body.scrollTop;
+
+页面滚动距离：
+
+window.pageXOffset/window.pageYOffset
+
+document.body.scrollTop/document.body.scrollLeft

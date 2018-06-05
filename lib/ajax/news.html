@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>News</title>
+		<link rel="stylesheet" href="css/base.css">
+		<style>
+			.wrap{
+				margin:0 auto;
+				width: 880px;
+				background: yellow;
+			}
+			.news-list li{
+				float: left;
+				margin-left: 80px;
+				margin-bottom: 30px;
+			}
+			.news-list li h3{
+				width: 320px;
+				height: 50px;
+				text-align: center;
+			}
+			.ajax-mark{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="wrap">
+			<h1 class="cn"></h1>
+			<ul class="news-list clearfix">
+				
+			</ul>
+			<div class="ajax-mark">正在加载数据</div>
+		</div>
+
+
+		<script src="js/jquery/jquery-1.8.3.js"></script>
+		<script>
+			$(document).ready(function(){
+
+				var page = 1;
+				pagecount = 0;
+				var k = true;
+				ajaxmodel();//默认发送一次ajax请求
+				function ajaxmodel(){
+
+					$.ajax({
+						type:"get",
+						url:"http://www.hulupiao.com/index.php?r=goods/list&callback=?",
+						data:"page="+page,
+						dataType:"jsonp",
+						success:function(msg){
+							console.log(msg)
+							pagecount = msg.pcount;//获取总页数
+							var nlinner = '';
+							for(var i = 0;i < msg.list.length;i++){
+								nlinner = nlinner + "<li><h3>"+ msg.list[i].name +"</h3>";
+								nlinner = nlinner + "<p>浏览次数："+msg.list[i].nums+"</p>";
+								nlinner = nlinner + "<p class='pic'><img src='"+msg.list[i].pic+"'></p></li>"
+							}
+
+							$(".news-list").append(nlinner);
+							k = true;
+						}
+
+
+					});
+					$(window).on("scroll",function(){
+						// console.log( $(window).scrollTop(),$(window).height() );
+						var scorh = $(window).scrollTop() + $(window).height();
+						var ajaxmark = $(".ajax-mark");
+						// console.log(ajaxmark.offset().top)
+						if( scorh > ajaxmark.offset().top && page < pagecount && k){
+							// console.log("加载吧");
+							page++;
+							ajaxmodel();
+							k = false;
+						}
+					})
+
+
+				}
+
+				
+
+
+
+			})
+		</script>
+	</body>
+</html>

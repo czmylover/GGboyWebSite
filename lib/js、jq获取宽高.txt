@@ -1,0 +1,79 @@
+Javascript:
+
+ 
+
+IE中：
+document.body.clientWidth ==> BODY对象宽度
+document.body.clientHeight ==> BODY对象高度
+document.documentElement.clientWidth ==> 可见区域宽度
+document.documentElement.clientHeight ==> 可见区域高度
+FireFox中：
+document.body.clientWidth ==> BODY对象宽度
+document.body.clientHeight ==> BODY对象高度
+document.documentElement.clientWidth ==> 可见区域宽度
+document.documentElement.clientHeight ==> 可见区域高度
+Opera中：
+document.body.clientWidth ==> 可见区域宽度
+document.body.clientHeight ==> 可见区域高度
+document.documentElement.clientWidth ==> 页面对象宽度（即BODY对象宽度加上Margin宽）
+document.documentElement.clientHeight ==> 页面对象高度（即BODY对象高度加上Margin高）
+
+ 
+
+ 
+
+alert(document.body.clientWidth);        //网页可见区域宽(body)
+
+alert(document.body.clientHeight);       //网页可见区域高(body)
+
+alert(document.body.offsetWidth);       //网页可见区域宽(body)，包括border、margin等
+
+alert(document.body.offsetHeight);      //网页可见区域宽(body)，包括border、margin等
+
+alert(document.body.scrollWidth);        //网页正文全文宽，包括有滚动条时的未见区域
+
+alert(document.body.scrollHeight);       //网页正文全文高，包括有滚动条时的未见区域
+
+alert(document.body.scrollTop);           //网页被卷去的Top(滚动条)
+
+alert(document.body.scrollLeft);           //网页被卷去的Left(滚动条)
+
+alert(window.screenTop);                     //浏览器距离Top
+
+alert(window.screenLeft);                     //浏览器距离Left
+
+alert(window.screen.height);                //屏幕分辨率的高
+
+alert(window.screen.width);                 //屏幕分辨率的宽
+
+alert(window.screen.availHeight);          //屏幕可用工作区的高
+
+alert(window.screen.availWidth);           //屏幕可用工作区的宽
+
+ 
+
+Jquery
+
+alert($(window).height());                           //浏览器当前窗口可视区域高度
+
+alert($(document).height());                        //浏览器当前窗口文档的高度
+
+alert($(document.body).height());                //浏览器当前窗口文档body的高度
+
+alert($(document.body).outerHeight(true));  //浏览器当前窗口文档body的总高度 包括border padding margin
+
+alert($(window).width());                            //浏览器当前窗口可视区域宽度
+
+alert($(document).width());                        //浏览器当前窗口文档对象宽度
+
+alert($(document.body).width());                //浏览器当前窗口文档body的宽度
+
+alert($(document.body).outerWidth(true));  //浏览器当前窗口文档body的总宽度 包括border padding margin
+
+
+
+
+
+
+
+html文件是自上而下的执行方式，但引入的css和javascript的顺序有所不同，css引入执行加载时，程序仍然往下执行，而执行到<script>脚本是则中断线程，待该script脚本执行结束之后程序才继续往下执行。所以，一般将script放在body之后是因为避免长时间执行script脚本而延迟阻塞。而有一些页面的效果的实现，是需要预先动态的加载一些js脚本，所以这些脚本应该放在<body>之前。其次，不能将需要访问dom元素的js放在body之前，因为此时还没有开始生成dom，所以在body之前的访问dom元素的js会出错，或者无效。就是因为这个，在dom没生成好时我就给它添加了方法，才导致这样。

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FragmenFly</title>
+	<link rel="stylesheet" href="http://www.ggboy.top/reset/css/base.css">
+	<style>
+		#fragment_title{
+			margin:80px auto 0;
+			position: relative;
+			width: 550px;
+			height: 360px;
+		}
+	</style>
+</head>
+<body>
+	<div id="fragment_title"></div>
+
+	<script src="js/jquery-1.8.3.js"></script>
+	<script src="js/jquery.fragmentFly.js"></script>
+	<script>
+	$(document).ready(function(){
+		function aa(){
+			/*对背景元素使用插件方法*/
+			$("#fragment_title").fragmentFly({
+
+		        image_url:"images/aini.png",    //背景图路径，当前目录为元素所在的html目录
+
+		        cut_dir:"y",    //可选"x"或"y"，默认均分x方向
+
+		        ave_part:12,    //均分cut_dir方向，默认切割成12份
+
+		        rm_part:[2,4]   //非cut_dir方向上随机切割，默认最小2份，最多3份
+
+		    },{
+
+		        anime_dir:"down",   //切割子元素动画运行方向，可选"up","down","left","right"，默认为down
+
+		        path:[300,800],     //切割子元素动画路长，默认路径最短500px，最长800px
+
+		        time:[500,1300],   //切割子元素动画时长，默认时长最短1000ms，最长1300ms
+
+		        opacity:[0,1]       //切割子元素透明度变化，默认初始为1，结束为1(即无渐变)
+		    });
+		}
+		aa();
+	})
+	</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>OwlCarousel实现带进度条的可触屏jquery焦点图特效 - CMS资源网（www.cmszy.com）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/owl.carousel.css" rel="stylesheet">
+<link href="css/owl.theme.css" rel="stylesheet">
+<style>
+* {margin: 0;padding: 0;list-style: none;border: none;}
+#owl-demo{width:100%;margin:0 auto;}
+#owl-demo .item img {display: block;width:100%;height:auto;}
+#bar {width: 0%;max-width: 100%;height: 4px;background: #7fc242;}
+#progressBar {width: 100%;background: #EDEDED;}
+</style>
+<script src="js/jquery-1.9.1.min.js"></script> 
+<script src="js/owl.carousel.js"></script> 
+<script>
+$(document).ready(function() {
+  var time = 7; // time in seconds
+  var $progressBar,
+	  $bar, 
+	  $elem, 
+	  isPause, 
+	  tick,
+	  percentTime;
+	$("#owl-demo").owlCarousel({
+	  slideSpeed : 500,
+	  paginationSpeed : 500,
+	  singleItem : true,
+	  afterInit : progressBar,
+	  afterMove : moved,
+	  startDragging : pauseOnDragging
+	});
+	//Init progressBar where elem is $("#owl-demo")
+	function progressBar(elem){
+	  $elem = elem;
+	  //build progress bar elements
+	  buildProgressBar();
+	  //start counting
+	  start();
+	}
+	//create div#progressBar and div#bar then prepend to $("#owl-demo")
+	function buildProgressBar(){
+	  $progressBar = $("<div>",{
+		id:"progressBar"
+	  });
+	  $bar = $("<div>",{
+		id:"bar"
+	  });
+	  $progressBar.append($bar).prependTo($elem);
+	}
+	function start() {
+	  //reset timer
+	  percentTime = 0;
+	  isPause = false;
+	  //run interval every 0.01 second
+	  tick = setInterval(interval, 10);
+	};
+	function interval() {
+	  if(isPause === false){
+		percentTime += 1 / time;
+		$bar.css({
+		   width: percentTime+"%"
+		 });
+		//if percentTime is equal or greater than 100
+		if(percentTime >= 100){
+		  //slide to next item 
+		  $elem.trigger('owl.next')
+		}
+	  }
+	}
+	//pause while dragging 
+	function pauseOnDragging(){
+	  isPause = true;
+	}
+	//moved callback
+	function moved(){
+	  //clear interval
+	  clearTimeout(tick);
+	  //start again
+	  start();
+	}
+});
+</script> 
+</head>
+<body>
+<div id="owl-demo" class="owl-carousel">
+  <div class="item"><img src="images/fullimage1.jpg"></div>
+  <div class="item"><img src="images/fullimage2.jpg"></div>
+  <div class="item"><img src="images/fullimage3.jpg"></div>
+</div>
+</body>
+</html>

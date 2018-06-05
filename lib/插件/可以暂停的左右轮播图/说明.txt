@@ -1,0 +1,10 @@
+Slidesjs
+
+Slides 是一个非常简洁的 jQuery 图片轮播插件，其特点是自动循环播放、图片预加载以及自动分页功能。
+使用示例
+?  Images with captions
+?  Linking
+?  Product
+?  Multiple slideshows
+?  Simple (unstyled)
+?  Standard

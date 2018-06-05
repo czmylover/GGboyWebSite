@@ -1,0 +1,19 @@
+窗口可视区域宽度： document.documentElement.clientWidth || document.body.clientWidth;
+窗口可视区域高度： document.documentElement.clientHeight || document.body.clientHeight;
+窗口可视区域宽度+边线和滚动条： document.body.offsetWidth ;
+窗口可视区域高度+边线和滚动条： document.body.offsetHeight ;
+
+实际内容的宽度： document.body.scrollWidth;
+实际内容的高度： document.body.scrollHeight;
+
+滚动条下拉被卷起来的距离：document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+滚动条侧拉被卷起来的距离：document.body.scrollLeft || document.documentElement.scrollLeft ;
+
+网页正文部分上：window.screenTop;
+网页正文部分左：window.screenLeft;
+
+元素的宽度：obj.offsetWidth;
+元素的高度：obj.offsetHeight;
+
+相对于父元素的上位移：obj.offsetTop;（在元素的包含元素不含滚动条的情况下）
+相对于父元素的左位移：obj.offsetLeft;（在元素的包含元素不含滚动条的情况下）
